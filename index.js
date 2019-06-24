@@ -1,15 +1,18 @@
-const discord = require('discord.js');
+const Discord = require('discord.js');
 const fs = require('fs');
 const enmap = require('enmap');
 const schedule = require('node-schedule');
-const client = new discord.Client();
-const {embed} = new discord.RichEmbed();
-const config = require(`./config.json`);
+const branch = require("git-branch")
+
+const client = new Discord.Client();
+const database = require(`./src/json/database.json`);
+const config = require(`./src/json/config.json`);
+const tokens = require(`./src/json/tokens.json`);
 client.config = config;
-const database = require(`./database.json`);
 client.database = database;
-client.fs = fs;
 client.commands = new enmap();
+
+
 fs.readdir('./events', (err, files) => {
     if (err) return console.error(err);
     files.forEach(file => {
@@ -19,6 +22,7 @@ fs.readdir('./events', (err, files) => {
         delete require.cache[require.resolve(`./events/${file}`)];
     });
 });
+
 fs.readdir(`./commands`, (err, files) => {
     if (err) return console.error(err);
     files.forEach(file => {
@@ -28,5 +32,7 @@ fs.readdir(`./commands`, (err, files) => {
         client.commands.set(name, props);
     });
 });
-const {token} = require('./auth.json');
+
+var token
+branch.sync() === "master"?token = tokens.master:token = tokens.dev
 client.login(token);
