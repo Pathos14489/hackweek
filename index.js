@@ -5,12 +5,15 @@ const schedule = require('node-schedule');
 const branch = require("git-branch")
 require('npm-package-to-env').config()
 require("./extensions/message")
+//TODO: Extension-ify the client extras to shrink index. (e.g. ./extensions/client.js)
 
-//Requires and objectifies client extras
-const client = new Discord.Client();
+//Loads JSONs
 const database = require(`./src/json/database.json`);
 const config = require(`./src/json/config.json`);
 const tokens = require(`./src/json/tokens.json`);
+
+//Requires and objectifies client extras
+const client = new Discord.Client();
 client.config = config;
 client.version = process.env.npm_package_version
 client.database = database;
@@ -43,14 +46,16 @@ client.saveDB = async function(){
 }
 
 //For Manually running the update function.
-client.update = async function(){
+client.update = async function(bool){
+    if(!bool) var bool = false
+    console.info(`${bool?"An Automated":`A Manual`} Update Ran @ ${new Date()}`)
     client.saveConfig()
     client.saveDB()
 }
 
 //Runs update every ${update} minutes
 schedule.scheduleJob(`*/${update} * * * *`, () => {
-    client.update()
+    client.update(true)
 })
 
 //Loads the events
