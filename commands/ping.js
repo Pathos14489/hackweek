@@ -1,7 +1,7 @@
 exports.name = `{PREFIX}${__filename.split(/[\\/]/).pop().slice(0,-3)}`
 exports.description = `Does a ping thing`
 exports.usage = `**{PREFIX}${__filename.split(/[\\/]/).pop().slice(0,-3)}**`
-exports.clearance = `CREATOR`
+exports.clearance = `USER`
 exports.nsfw = false
 
 exports.run = async (client, message, args) => {
