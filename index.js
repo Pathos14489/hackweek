@@ -6,6 +6,7 @@ const branch = require("git-branch")
 require('npm-package-to-env').config()
 require("./extensions/message")
 
+//Requires and objectifies client extras
 const client = new Discord.Client();
 const database = require(`./src/json/database.json`);
 const config = require(`./src/json/config.json`);
@@ -15,6 +16,10 @@ client.version = process.env.npm_package_version
 client.database = database;
 client.commands = new enmap();
 
+//Defines Variables
+var update = 5 //How many minues between each time the update function is ran.
+
+//For Manually saving the config file
 client.saveConfig = async function(){
     return new Promise((resolve,reject) => {
         fs.writeFile(__dirname+"/src/json/config.json", JSON.stringify(client.config), function(err) {
@@ -25,7 +30,30 @@ client.saveConfig = async function(){
         })
     })
 }
+//For manually saving the DB
+client.saveDB = async function(){
+    return new Promise((resolve,reject) => {
+        fs.writeFile(__dirname+"/src/json/database.json", JSON.stringify(client.database), function(err) {
+            resolve("Saved!")
+            if(err) {
+                reject(err)
+            }
+        })
+    })
+}
 
+//For Manually running the update function.
+client.update = async function(){
+    client.saveConfig()
+    client.saveDB()
+}
+
+//Runs update every ${update} minutes
+schedule.scheduleJob(`*/${update} * * * *`, () => {
+    client.update()
+})
+
+//Loads the events
 fs.readdir('./events', (err, files) => {
     if (err) return console.error(err);
     files.forEach(file => {
@@ -35,7 +63,7 @@ fs.readdir('./events', (err, files) => {
         delete require.cache[require.resolve(`./events/${file}`)];
     });
 });
-
+//Loads all commands currently in the ./commands directory.
 fs.readdir(`./commands`, (err, files) => {
     if (err) return console.error(err);
     files.forEach(file => {
@@ -46,4 +74,5 @@ fs.readdir(`./commands`, (err, files) => {
     });
 });
 
+//Logs token into Discord API based on which branch is the working branch at the moment
 client.login(branch.sync() === "master"?tokens.master:tokens.dev)
