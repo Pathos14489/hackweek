@@ -8,7 +8,7 @@ exports.run = (client, message) => {
     message.command(2, async () => {
         const cmd = message.args[1].toLowerCase()
         
-        if (!client.commands.has(cmd)) {throw "Command not found, try **{load** instead!"}
+        if (!client.commands.has(cmd)) {throw "Command not found, try **load** instead!"}
         
         //Deletes Command from client.commands and removes the cached version from require
         client.commands.delete(cmd);
@@ -22,14 +22,14 @@ exports.run = (client, message) => {
         var embed = {
             color: parseInt("0x99ff66"),
             author: {
-                name:`${client.bot.name} ${client.bot.version}`,
-                icon_url: client.user.avatarURL
+                name:`${client.user.tag} ${client.version}`,
+                icon_url:client.user.avatarURL
             }, 
-            description:`Command **{${cmd}** has been reloaded! Description:
+            description:`Command **${cmd}** has been reloaded! Description:
             ${client.commands.get(cmd).description.replace(/{PREFIX}/g, client.config.prefix)}`,
             fields:[
                 {
-                    name:`**{${cmd}**`,
+                    name:`**${cmd}**`,
                     value:`${client.commands.get(cmd).usage.replace(/{PREFIX}/g, client.config.prefix)}`
                 },
             ]

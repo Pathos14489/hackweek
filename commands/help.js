@@ -7,10 +7,10 @@ exports.nsfw = false
 
 exports.run = (client, message) => {
     message.command(false,async () => {
+        var prefix = client.config.prefix
         if(message.args.length >= 3){throw "Too many arguments!"}
         if(message.args.length === 1){
             var cmd = client.commands.get("help")
-            var prefix = client.config.prefix
             var embed = {
                 color: parseInt("0x99ff66"),
                 author: {
