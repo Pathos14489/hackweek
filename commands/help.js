@@ -10,6 +10,7 @@ exports.run = (client, message) => {
         if(message.args.length >= 3){throw "Too many arguments!"}
         if(message.args.length === 1){
             var cmd = client.commands.get("help")
+            var prefix = client.config.prefix
             var embed = {
                 color: parseInt("0x99ff66"),
                 author: {
@@ -23,8 +24,8 @@ exports.run = (client, message) => {
                 fields:[
                     {
                         name:"**Help**",
-                        value:`${cmd.usage.replace(/{PREFIX}/g, client.config.prefix)}
-                            If you're not sure where to start, try running **${client.config.prefix}commands** to get a list of commands!`
+                        value:`${cmd.usage.replace(/{PREFIX}/g, prefix)}
+                            If you're not sure where to start, try running **${prefix}commands** to get a list of commands!`
                     },
                 ],
             }
@@ -34,29 +35,20 @@ exports.run = (client, message) => {
                 message.delete()
                 throw "That's not a command!"
             }
-            // if(cmd.clearance === "CREATOR" && !message.gus.user.clearance === "CREATOR"){
-            //     message.delete()
-            //     throw "That's not a command!"
-            // }
-            // if(cmd.nsfw === true && !message.channel.nsfw){
-            //     message.delete()
-            //     throw "That's not a command!"
-            // }
-            // if(cmd.clearance === "ADMINISTRATOR" && (!message.gus.user.clearance === "ADMINISTRATOR" && !message.gus.user.clearance === "CREATOR" && !message.member.hasPermissions("ADMINISTRATOR"))){throw "You are not an Administrator!"}
-            // if (!cmd){
-            //     throw "Cannot get help for invalid command! Check your spelling!"
-            // }
+
+            //TODO: Permissiosn Handler for help command -- Don't let them see CREATOR clearance, or ADMINISTRATOR if they're NOT an Admin or CREATOR.
+            
             var embed = {
                 color: parseInt("0x99ff66"),
                 author: {
-                    name:`${cmd.name.replace(/{PREFIX}/g, client.config.prefix)}`,
+                    name:`${cmd.name.replace(/{PREFIX}/g, prefix)}`,
                     icon_url: client.user.avatarURL
                 }, 
-                description:cmd.description.replace(/{PREFIX}/g, client.config.prefix),
+                description:cmd.description.replace(/{PREFIX}/g, prefix),
                 fields:[
                     {
                         name:"**Usage:**",
-                        value:cmd.usage.replace(/{PREFIX}/g, client.config.prefix)
+                        value:cmd.usage.replace(/{PREFIX}/g, prefix)
                     },
                 ],
             }
