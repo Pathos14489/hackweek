@@ -2,6 +2,11 @@ const Discord = require("discord.js")
 Discord.Message.prototype.command = async function (num, func) {
     try {
         var args = this.content.split(' ')
+        /**
+         * Arguments Handler -- If num is set to false, this handler will be bypassed for per command handling. 
+         * Useful for commands with variable argument count. Otherwise, specify how many arguments a command will have. 
+         * If none, put 1.
+         */
         if(num !== false){
             if(num+1 <= args.length){
                 throw "Too many arguments!"
@@ -9,11 +14,18 @@ Discord.Message.prototype.command = async function (num, func) {
                 throw "Too few arguments!"  
             }
         }
-        func().catch(err=>{
-            console.trace("Command Error: "+err)
-            if(typeof err !== "string"){
-                err = err.stack
-            }
+
+        /**
+         * After checking the Args Handler, the command callback code is run here. It's then checked for any thrown async errors in the code, and if any exist,
+         * they are then handled by this error handler.
+         */
+        func().catch(async (err)=>{
+            console.log(err)
+            
+            //TODO: Fix Promise Rejection being unhandled
+
+            console.trace("Async/Promise Command Error: "+err)
+            
             var embed = {
                 embed:{
                     color: parseInt("0xff5050"),
@@ -31,12 +43,14 @@ Discord.Message.prototype.command = async function (num, func) {
                     timestamp: new Date()
                 }
             }
-            this.channel.send(embed).then(msg=>{
-                msg.delete(5000)
-            })
+            
+            this.channel.send(embed).then(msg=>{ msg.delete(5000) }).catch(err=>console.trace(err))
         })
+
     } catch (error) {
-        console.trace("Command Error: "+error)
+        // Sync Error Handling
+        console.trace("Sync Command Error: "+error)
+
         var embed = {
             embed:{
                 color: parseInt("0xff5050"),
@@ -54,9 +68,8 @@ Discord.Message.prototype.command = async function (num, func) {
                 timestamp: new Date()
             }
         }
-        this.channel.send(embed).then(msg=>{
-            msg.delete(5000)
-        })
+        
+        this.channel.send(embed).then(msg=>{ msg.delete(5000) })
     }
     this.delete(0)
 }
