@@ -4,6 +4,6 @@ module.exports = client => {
 │         SupportBot Initialized:                        │
 │   "With Discord as my witness, I will help a friend."  │
 ├────────┬───────────────────────────────────────────────┤
-│Client: │  Bot: ${client.user.tag} |  Version: ${client.version}  │
+│Client: │  Bot: ${client.user.tag} |  Version: ${client.version}   │
 └────────┴───────────────────────────────────────────────┘`)
 }

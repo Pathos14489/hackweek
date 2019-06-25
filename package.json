@@ -2,6 +2,7 @@
   "main": "index.js",
   "version": "0.0.4",
   "dependencies": {
+    "bluebird": "^3.5.5",
     "discord.js": "^11.5.1",
     "enmap": "^5.0.0",
     "fs": "0.0.1-security",

@@ -28,7 +28,7 @@ module.exports = (client, message) => {
             }
     
             //Runs code associated with the command
-            cmd.run(client, message);
+            cmd.run(client, message)
         }else{
             //Message Handling
         }

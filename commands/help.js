@@ -36,7 +36,7 @@ exports.run = (client, message) => {
                 throw "That's not a command!"
             }
 
-            //TODO: Permissiosn Handler for help command -- Don't let them see CREATOR clearance, or ADMINISTRATOR if they're NOT an Admin or CREATOR.
+            //TODO: Permissions Handler for help command -- Don't let them see CREATOR clearance, or ADMINISTRATOR if they're NOT an Admin or CREATOR.
             
             var embed = {
                 color: parseInt("0x99ff66"),

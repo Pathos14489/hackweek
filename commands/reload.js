@@ -10,9 +10,14 @@ exports.run = (client, message) => {
         
         if (!client.commands.has(cmd)) {throw "Command not found, try **{load** instead!"}
         
+        //Deletes Command from client.commands and removes the cached version from require
         client.commands.delete(cmd);
         delete require.cache[require.resolve(`./${cmd}.js`)];
-        const props = require(`./${cmd}.js`);
+
+        //Re-requires it
+        const props = require(`./${cmd}.js`)
+
+        //Re-sets it
         client.commands.set(cmd, props);
         var embed = {
             color: parseInt("0x99ff66"),

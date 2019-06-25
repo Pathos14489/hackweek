@@ -5,6 +5,13 @@ const schedule = require('node-schedule');
 const branch = require("git-branch")
 require('npm-package-to-env').config()
 require("./extensions/message")
+
+//BlueBird Long Stack Traces rock
+var Promise = require("bluebird")
+Promise.config({
+    longStackTraces: true
+})
+
 //TODO: Extension-ify the client extras to shrink index. (e.g. ./extensions/client.js)
 
 //Loads JSONs
@@ -54,6 +61,7 @@ client.update = async function(bool){
 }
 
 //Runs update every ${update} minutes
+//To clarify, this is not to be relied on, only if you forget to manually update.
 schedule.scheduleJob(`*/${update} * * * *`, () => {
     client.update(true)
 })
