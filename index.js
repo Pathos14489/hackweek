@@ -3,15 +3,28 @@ const fs = require('fs');
 const enmap = require('enmap');
 const schedule = require('node-schedule');
 const branch = require("git-branch")
+require('npm-package-to-env').config()
+require("./extensions/message")
 
 const client = new Discord.Client();
 const database = require(`./src/json/database.json`);
 const config = require(`./src/json/config.json`);
 const tokens = require(`./src/json/tokens.json`);
 client.config = config;
+client.version = process.env.npm_package_version
 client.database = database;
 client.commands = new enmap();
 
+client.saveConfig = async function(){
+    return new Promise((resolve,reject) => {
+        fs.writeFile(__dirname+"/src/json/config.json", JSON.stringify(client.config), function(err) {
+            resolve("Saved!")
+            if(err) {
+                reject(err)
+            }
+        })
+    })
+}
 
 fs.readdir('./events', (err, files) => {
     if (err) return console.error(err);
@@ -33,6 +46,4 @@ fs.readdir(`./commands`, (err, files) => {
     });
 });
 
-var token
-branch.sync() === "master"?token = tokens.master:token = tokens.dev
-client.login(token);
+client.login(branch.sync() === "master"?tokens.master:tokens.dev)

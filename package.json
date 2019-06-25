@@ -14,7 +14,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "npm version patch --force"
+      "pre-push": "npm --version patch"
     }
   }
 }
