@@ -5,7 +5,7 @@ exports.clearance = `USER`
 exports.nsfw = false
 
 exports.run = async (client, message, args) => {
-    message.command(1,async ()=>{
+    message.command(false,async ()=>{
         function leadingZeroes(n){
             if (n<=9) return "0"+n;
             return n;
