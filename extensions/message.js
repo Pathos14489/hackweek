@@ -21,11 +21,12 @@ Discord.Message.prototype.command = async function (num, func) {
          */
         func().catch(async (err)=>{
             console.log(err)
-            
-            //TODO: Fix Promise Rejection being unhandled
-
+            /**
+             * FIXME: Fix Promise Rejections being unhandled. It errors at "err.substring(0,1023)", because the rejected promise is not a string and 
+             * has no way to convert to one naturally because the err object of a rejected promise does not have accessible data. 
+             * There are a few workarounds but it's... irritating.
+             */
             console.trace("Async/Promise Command Error: "+err)
-            
             var embed = {
                 embed:{
                     color: parseInt("0xff5050"),
@@ -44,7 +45,11 @@ Discord.Message.prototype.command = async function (num, func) {
                 }
             }
             
-            this.channel.send(embed).then(msg=>{ msg.delete(5000) }).catch(err=>console.trace(err))
+            this.channel.send(embed).then(msg=>{
+                if(client.config.deleteErrors === true){
+                    msg.delete(5000)
+                }
+            })
         })
 
     } catch (error) {
@@ -69,7 +74,11 @@ Discord.Message.prototype.command = async function (num, func) {
             }
         }
         
-        this.channel.send(embed).then(msg=>{ msg.delete(5000) })
+        this.channel.send(embed).then(msg=>{
+            if(client.config.deleteErrors === true){
+                msg.delete(5000)
+            }
+        })
     }
     this.delete(0)
 }
