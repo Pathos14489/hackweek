@@ -21,10 +21,12 @@ const tokens = require(`./src/json/tokens.json`);
 
 //Requires and objectifies client extras
 const client = new Discord.Client();
+client.RC = require("reaction-core")
 client.config = config;
 client.version = process.env.npm_package_version
 client.database = database;
 client.commands = new enmap();
+client.RCHandler = new client.RC.Handler
 
 //Defines Variables
 var update = 5 //How many minues between each time the update function is ran.
