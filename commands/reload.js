@@ -25,11 +25,11 @@ exports.run = (client, message) => {
                 name:`${client.user.tag} ${client.version}`,
                 icon_url:client.user.avatarURL
             }, 
-            description:`Command **${cmd}** has been reloaded! Description:
+            description:`Command **${client.config.prefix}${cmd}** has been reloaded! Description:
             ${client.commands.get(cmd).description.replace(/{PREFIX}/g, client.config.prefix)}`,
             fields:[
                 {
-                    name:`**${cmd}**`,
+                    name:`**${client.config.prefix}${cmd}**`,
                     value:`${client.commands.get(cmd).usage.replace(/{PREFIX}/g, client.config.prefix)}`
                 },
             ]

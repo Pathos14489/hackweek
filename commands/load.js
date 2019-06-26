@@ -8,7 +8,7 @@ exports.run = (client, message) => {
     message.command(2, async () => {
         const commandName = message.args[1].toLowerCase()
         
-        if (client.commands.has(commandName)) {throw "Command found, try **{reload** instead!"}
+        if (client.commands.has(commandName)) {throw "Command found, try **reload** instead!"}
         
         const props = require(`./${commandName}.js`);
         client.commands.set(commandName, props);
@@ -16,15 +16,15 @@ exports.run = (client, message) => {
         var embed = {
             color: parseInt("0x99ff66"),
             author: {
-                name:`${client.bot.name} ${client.bot.version}`,
+                name:`${client.user.tag} ${client.version}`,
                 icon_url: client.user.avatarURL
             }, 
-            description:`Command **${message.gus.guild.prefix}${commandName}** has been loaded! Description:
-            ${client.commands.get(commandName).description.replace(/{PREFIX}/g, message.gus.guild.prefix)}`,
+            description:`Command **${client.config.prefix}${commandName}** has been loaded! Description:
+            ${client.commands.get(commandName).description.replace(/{PREFIX}/g, client.config.prefix)}`,
             fields:[
                 {
-                    name:`**${message.gus.guild.prefix}${commandName}**`,
-                    value:`${client.commands.get(commandName).usage.replace(/{PREFIX}/g, message.gus.guild.prefix)}`
+                    name:`**${client.config.prefix}${commandName}**`,
+                    value:`${client.commands.get(commandName).usage.replace(/{PREFIX}/g, client.config.prefix)}`
                 },
             ]
         }
