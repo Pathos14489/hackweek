@@ -56,7 +56,9 @@ module.exports = (client, message) => {
             }
         }
         message.channel.send(embed).then(msg=>{
-            msg.delete(5000)
+            if(client.config.deleteErrors === true){
+                msg.delete(5000)
+            }
         })
     }
 }
