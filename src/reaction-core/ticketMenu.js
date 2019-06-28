@@ -1,10 +1,26 @@
-module.exports = function(message, tDesc) {
+module.exports = function(client, ocMessage) {
     const buttons = [
         {
             emoji: '⭕',
             run: (user, message) => {
                 //Opens the Ticket Channel in the Tickets Category
-                
+                function leadingZeroes(n){
+                    if (n<=9) return "0"+n;
+                    return n;
+                }
+                var now = new Date();
+                let dateShort = leadingZeroes(now.getDate())+leadingZeroes(now.getMonth()+1)+now.getFullYear()
+                let random1 = (Math.round(Math.random()*9))
+                let random2 = (Math.round(Math.random()*9))
+                let random3 = (Math.round(Math.random()*9))
+                let ticketID = user.username.toLowerCase().slice(0, 3)+ocMessage.author.username.toLowerCase().slice(0, 3)+user.id.slice(0, 3)+ocMessage.author.id.slice(0, 3)+dateShort+random1+random2+random3
+                client.database.activeTickets.push(ticketID)
+                client.update();
+                ocMessage.guild.createChannel(ticketID, {
+                    type: 'text',
+                    topic: `Consumer's problem: \`\`\`${ocMessage.tDesc}\`\`\``,
+                    parent: client.config.category
+                })
             }
         },
         {
@@ -37,14 +53,14 @@ module.exports = function(message, tDesc) {
         color: parseInt("0xff6b00"),
         author: {
             name:`Support Ticket Request!`,
-            icon_url:message.author.avatarURL
+            icon_url:ocMessage.author.avatarURL
         },
-        title: `${message.author.tag} has sent a request!`,
-        description:`${tDesc}`,
-        timestamp:message.createdTimestamp,
+        title: `${ocMessage.author.tag} has sent a request!`,
+        description:`${ocMessage.tDesc}`,
+        timestamp:ocMessage.createdTimestamp,
         footer: {
-            icon_url:message.author.avatarURL,
-            text:message.author.id
+            icon_url:ocMessage.author.avatarURL,
+            text:ocMessage.author.id
         }
     }
 return {
