@@ -1,5 +1,5 @@
 exports.name = `{PREFIX}${__filename.split(/[\\/]/).pop().slice(0,-3)}`
-exports.description = `{PREFIX}${__filename.split(/[\\/]/).pop().slice(0,-3)} sends a support ticket to staff members`
+exports.description = `Sends a support ticket to staff members.`
 exports.usage = `**{PREFIX}${__filename.split(/[\\/]/).pop().slice(0,-3)}** **(short description [8-255 characters])**`
 exports.clearance = `USER`
 exports.nsfw = false

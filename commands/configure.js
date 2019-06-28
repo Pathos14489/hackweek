@@ -1,5 +1,5 @@
 exports.name = `{PREFIX}${__filename.split(/[\\/]/).pop().slice(0,-3)}`
-exports.description = `{PREFIX}${__filename.split(/[\\/]/).pop().slice(0,-3)} allows you to configure bot channels`
+exports.description = `Allows you to configure bot channels and tickets category.`
 exports.usage = `**{PREFIX}${__filename.split(/[\\/]/).pop().slice(0,-3)} [r (request) | t (ticket) | c (category)] [channel ID | channel #mention]**`
 exports.clearance = `CREATOR`
 exports.nsfw = false
