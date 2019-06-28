@@ -1,6 +1,6 @@
 exports.name = `{PREFIX}${__filename.split(/[\\/]/).pop().slice(0,-3)}`
 exports.description = `{PREFIX}${__filename.split(/[\\/]/).pop().slice(0,-3)} allows you to configure bot channels`
-exports.usage = `**{PREFIX}${__filename.split(/[\\/]/).pop().slice(0,-3)} [r (request) | t (ticket) | s (support)] [channel ID | channel #mention]**`
+exports.usage = `**{PREFIX}${__filename.split(/[\\/]/).pop().slice(0,-3)} [r (request) | t (ticket) | c (category)] [channel ID | channel #mention]**`
 exports.clearance = `CREATOR`
 exports.nsfw = false
 
@@ -55,9 +55,10 @@ exports.run = (client, message) => {
                     }
                     message.channel.send({embed:embed}).then(msg => msg.delete(10000))
                     break;
-                case "support":
-                case "s":
-                    client.config.supportChannel = vChannel.id
+                case "category":
+                case "c":
+                    if (vChannel.type !== 'category') throw "Provided channel is not a **category**!"
+                    client.config.category = vChannel.id
                     client.update();
                     var embed = {
                         color: parseInt("0x99ff66"),
@@ -65,7 +66,7 @@ exports.run = (client, message) => {
                             name:`${client.user.tag} ${client.version}`,
                             icon_url:client.user.avatarURL
                         }, 
-                        description:`Successfully updated Support Channel to ${vChannel}`,
+                        description:`Successfully updated category to \`${vChannel.name}\``,
                     }
                     message.channel.send({embed:embed}).then(msg => msg.delete(10000))
                     break;
