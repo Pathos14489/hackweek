@@ -25,7 +25,7 @@ exports.run = (client, message) => {
                 }, 
                 description:`User **${validUser}** can now use support tickets!`,
             }
-            message.channel.send({embed:embed}).then(msg => msg.delete(5000))
+            message.channel.send({embed:embed}).then(msg => msg.delete(10000))
         }
         else {
             if (!client.database.supportBanned.includes(taggedUser.id)) throw "This user is not banned!"
@@ -42,7 +42,7 @@ exports.run = (client, message) => {
                 }, 
                 description:`User **${taggedUser}** can now use support tickets!`,
             }
-            message.channel.send({embed:embed}).then(msg => msg.delete(5000))
+            message.channel.send({embed:embed}).then(msg => msg.delete(10000))
         }
     })
 }

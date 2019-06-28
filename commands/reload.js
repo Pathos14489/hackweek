@@ -34,6 +34,6 @@ exports.run = (client, message) => {
                 },
             ]
         }
-        message.channel.send({embed:embed}).then(msg => msg.delete(5000))
+        message.channel.send({embed:embed}).then(msg => msg.delete(10000))
     })
 }

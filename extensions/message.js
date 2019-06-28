@@ -47,7 +47,7 @@ Discord.Message.prototype.command = async function (num, func) {
             
             this.channel.send(embed).then(msg=>{
                 if(client.config.deleteErrors === true){
-                    msg.delete(5000)
+                    msg.delete(10000)
                 }
             })
         })
@@ -76,7 +76,7 @@ Discord.Message.prototype.command = async function (num, func) {
         
         this.channel.send(embed).then(msg=>{
             if(client.config.deleteErrors === true){
-                msg.delete(5000)
+                msg.delete(10000)
             }
         })
     }
