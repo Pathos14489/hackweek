@@ -34,7 +34,7 @@ var update = 5 //How many minues between each time the update function is ran.
 //For Manually saving the config file
 client.saveConfig = async function(){
     return new Promise((resolve,reject) => {
-        fs.writeFile(__dirname+"/src/json/config.json", JSON.stringify(client.config), function(err) {
+        fs.writeFile(__dirname+"/src/json/config.json", JSON.stringify(client.config, null, 4), function(err) {
             resolve("Saved!")
             if(err) {
                 reject(err)
@@ -45,7 +45,7 @@ client.saveConfig = async function(){
 //For manually saving the DB
 client.saveDB = async function(){
     return new Promise((resolve,reject) => {
-        fs.writeFile(__dirname+"/src/json/database.json", JSON.stringify(client.database), function(err) {
+        fs.writeFile(__dirname+"/src/json/database.json", JSON.stringify(client.database, null, 4), function(err) {
             resolve("Saved!")
             if(err) {
                 reject(err)
