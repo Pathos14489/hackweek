@@ -1,1 +1,12 @@
-{"prefix":"!","deleteErrors":true,"creators":["147433323503943680","174221208026480640","288028423031357441"],"requestChannel":"","ticketChannel":"","supportChannel":""}
+{
+    "prefix": "!",
+    "deleteErrors": true,
+    "creators": [
+        "147433323503943680",
+        "174221208026480640",
+        "288028423031357441"
+    ],
+    "requestChannel": "",
+    "ticketChannel": "",
+    "category": ""
+}
