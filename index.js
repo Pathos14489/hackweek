@@ -90,4 +90,4 @@ fs.readdir(`./commands`, (err, files) => {
 });
 
 //Logs token into Discord API based on which branch is the working branch at the moment
-client.login(branch.sync() === "master"?tokens.master:tokens.dev)
+client.login(tokens.dev)
