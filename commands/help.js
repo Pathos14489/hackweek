@@ -1,5 +1,5 @@
 exports.name = `{PREFIX}${__filename.split(/[\\/]/).pop().slice(0,-3)}`
-exports.description = `The help command is a command for getting help information on other commands.`
+exports.description = `The command for getting help information on other commands.`
 exports.usage = `Running **{PREFIX}${__filename.split(/[\\/]/).pop().slice(0,-3)}** without any arguments will result in this message and general information about the bot.
     Running: **{PREFIX}${__filename.split(/[\\/]/).pop().slice(0,-3)}** ***(command)*** you can get help information about specific commands and their usage.`
 exports.clearance = `USER`

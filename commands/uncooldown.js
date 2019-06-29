@@ -1,6 +1,6 @@
 exports.name = `{PREFIX}${__filename.split(/[\\/]/).pop().slice(0,-3)}`
-exports.description = ` commandDescription`
-exports.usage = `**{PREFIX}${__filename.split(/[\\/]/).pop().slice(0,-3)}** *usage*`
+exports.description = `Removes the cooldown for specified user.`
+exports.usage = `**{PREFIX}${__filename.split(/[\\/]/).pop().slice(0,-3)}** ***[user_ID or @mention]***`
 exports.clearance = `CREATOR`
 exports.nsfw = false
 

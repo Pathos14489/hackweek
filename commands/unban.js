@@ -1,7 +1,7 @@
 const fs = require('fs');
 exports.name = `{PREFIX}${__filename.split(/[\\/]/).pop().slice(0,-3)}`
 exports.description = `Allows banned member to use support tickets again.`
-exports.usage = `**{PREFIX}${__filename.split(/[\\/]/).pop().slice(0,-3)}** *[user_ID or @mention]*`
+exports.usage = `**{PREFIX}${__filename.split(/[\\/]/).pop().slice(0,-3)}** ***[user_ID or @mention]***`
 exports.clearance = `CREATOR`
 exports.nsfw = false
 
