@@ -7,8 +7,8 @@ exports.nsfw = false
 exports.run = (client, message) => {
     message.command(false,async () => {
         if (!client.config.category) throw "Staff haven't set **category**, so you can't delete any support tickets there!"
-        client.database.activeTickets = [];
         client.database.ticketCooldown = [];
+        client.database.activeTickets = {};
         client.database.ticketCount = {};
         message.guild.channels.get(client.config.category).children.forEach(children => children.delete())
         client.update();
