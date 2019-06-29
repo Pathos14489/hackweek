@@ -1,6 +1,6 @@
 exports.name = `{PREFIX}${__filename.split(/[\\/]/).pop().slice(0,-3)}`
 exports.description = `Sends a support ticket to staff members.`
-exports.usage = `**{PREFIX}${__filename.split(/[\\/]/).pop().slice(0,-3)}** **(short description [8-255 characters])**`
+exports.usage = `**{PREFIX}${__filename.split(/[\\/]/).pop().slice(0,-3)}** **(short description [8-240 characters])**`
 exports.clearance = `USER`
 exports.nsfw = false
 
@@ -11,14 +11,13 @@ exports.run = (client, message) => {
         if (client.database.ticketCooldown.includes(message.author.id)) throw "You are sending support tickets too quickly!\nTry again later."
 
         //simple declarations
-        var cooldown = 1800000;
         var prefix = client.config.prefix //prefix
         var cName = __filename.split(/[\\/]/).pop().slice(0,-3) //command name
         var tDesc = message.content.slice(prefix.length+cName.length+1) //ticket description
         message.tDesc = tDesc
         //I tried using switch(tDesc.length) {case:}, but I didn't succeed
         if (tDesc.length < 8) throw `Your description is too short!`
-        if (tDesc.length > 255) throw `Your description is too long!`
+        if (tDesc.length > 240) throw `Your description is too long!`
 
         //ticket reaction menu being sent to client.config.ticketChannel
         const options = require(`../src/reaction-core/ticketMenu`)(client, message)
@@ -39,7 +38,7 @@ exports.run = (client, message) => {
             }
             client.update();
             console.log(`Removed ticket cooldown of ${message.author.id}`)
-        },cooldown);
+        },client.config.cooldownValue);
 
         //confirmation message for user, which tells that their ticket was sent successfully
         var Iembed = {
