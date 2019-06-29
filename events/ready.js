@@ -1,3 +1,9 @@
 module.exports = client => {
-    console.log(`I am alive!\nLogged in as '${client.user.tag}'`);
+    console.log(`
+┌────────────────────────────────────────────────────────┐
+│         SupportBot Initialized:                        │
+│   "With Discord as my witness, I will help a friend."  │
+├────────┬───────────────────────────────────────────────┤
+│Client: │  Bot: ${client.user.tag} |  Version: ${client.version}   │
+└────────┴───────────────────────────────────────────────┘`)
 }

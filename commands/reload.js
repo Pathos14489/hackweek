@@ -1,12 +1,39 @@
-exports.run = (client, message, args) => {
-    if (!client.config.superUsers.includes(message.author.id)) return message.reply(`only superUser may be able to perform this action!`);
-    if (!args.length) return message.reply(`you must provide a valid command!`);
-    let name = args[0];
-    if (!client.commands.has(name)) return message.reply(` \`${name}\` is not a valid command!`);
-    delete require.cache[require.resolve(`./${name}.js`)];
-    client.commands.delete(name);
-    const props = require(`./${name}.js`);
-    client.commands.set(name, props);
-    message.channel.send(`Successfully reloaded command \`${name}\` 🎉`);
-    console.log(`(reload) Successfully reloaded command \`${name}\``);
+exports.name = `{PREFIX}${__filename.split(/[\\/]/).pop().slice(0,-3)}`
+exports.description = `Reloads command with latest code.`
+exports.usage = `**{PREFIX}${__filename.split(/[\\/]/).pop().slice(0,-3)}** ***(command)***`
+exports.clearance = `CREATOR`
+exports.nsfw = false
+
+exports.run = (client, message) => {
+    message.command(2, async () => {
+        const cmd = message.args[1].toLowerCase()
+        
+        if (!client.commands.has(cmd)) {throw "Command not found, try **load** instead!"}
+        
+        //Deletes Command from client.commands and removes the cached version from require
+        client.commands.delete(cmd);
+        delete require.cache[require.resolve(`./${cmd}.js`)];
+
+        //Re-requires it
+        const props = require(`./${cmd}.js`)
+
+        //Re-sets it
+        client.commands.set(cmd, props);
+        var embed = {
+            color: parseInt("0x99ff66"),
+            author: {
+                name:`${client.user.tag} ${client.version}`,
+                icon_url:client.user.avatarURL
+            }, 
+            description:`Command **${client.config.prefix}${cmd}** has been reloaded! Description:
+            ${client.commands.get(cmd).description.replace(/{PREFIX}/g, client.config.prefix)}`,
+            fields:[
+                {
+                    name:`**${client.config.prefix}${cmd}**`,
+                    value:`${client.commands.get(cmd).usage.replace(/{PREFIX}/g, client.config.prefix)}`
+                },
+            ]
+        }
+        message.channel.send({embed:embed}).then(msg => msg.delete(10000))
+    })
 }
