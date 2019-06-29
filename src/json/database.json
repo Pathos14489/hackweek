@@ -1,5 +1,6 @@
 {
     "supportBanned": [],
-    "activeTickets": [],
-    "ticketCooldown": []
+    "ticketCooldown": [],
+    "activeTickets": {},
+    "ticketCount": {}
 }

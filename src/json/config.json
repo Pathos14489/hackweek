@@ -1,6 +1,8 @@
 {
     "prefix": "!",
     "deleteErrors": true,
+    "cooldownValue": 1800000,
+    "maxTickets": 100,
     "creators": [
         "147433323503943680",
         "174221208026480640",
