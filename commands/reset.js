@@ -10,7 +10,7 @@ exports.run = (client, message) => {
         client.database.ticketCooldown = [];
         client.database.activeTickets = {};
         client.database.ticketCount = {};
-        message.guild.channels.get(client.config.category).children.forEach(children => children.delete())
+        message.guild.channels.get(client.config.category).children.forEach(child => child.delete())
         client.update();
         var embed = {
             color: parseInt("0x99ff66"),

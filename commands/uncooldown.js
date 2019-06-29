@@ -22,7 +22,7 @@ exports.run = (client, message) => {
                     name:`${client.user.tag} ${client.version}`,
                     icon_url:client.user.avatarURL
                 }, 
-                description:`User **${taggedUser}** is not on cooldown anymore!`,
+                description:`User **${validUser}** is not on cooldown anymore!`,
             }
             message.channel.send({embed:embed}).then(msg => msg.delete(10000))
         }
