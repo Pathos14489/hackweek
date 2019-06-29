@@ -100,6 +100,12 @@ module.exports = function(client, ocMessage) {
                 });
                 function rejection(reason, date){
                     let newEmbed = embed
+                    //something doesn't want to work here, eh...
+                    // let toBeDeleted = message.guild.channels.get(client.config.category).children.has(client.database.activeTickets[embed.footer.text.slice(-20)].channel)
+                    // if (toBeDeleted) toBeDeleted.delete();
+                    message.guild.channels.get(client.config.category).children.forEach(child => {
+                        if (child.id === client.database.activeTickets[embed.footer.text.slice(-20)].channel) child.delete();
+                    }) 
                     embed.color = colors.red
                     embed.fields.push({
                         name: `Status update`,
